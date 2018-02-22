@@ -11,10 +11,12 @@ private lateinit var configuration: SlackExtension
 class SlackPlugin : Plugin<Project> {
 	override fun apply(project: Project) {
 		project.extensions.create("slack", SlackExtension::class.java)
+		project.gradle.taskGraph.addTaskExecutionListener(TaskExecutionListener)
 	}
 }
 
 class SlackExtension(
+	val enabled: Boolean,
 	val webHook: String,
 	val messageTemplate: String,
 	val monitorTasks: List<Task>
@@ -45,7 +47,3 @@ fun handleTaskFinished(task: Task, state: TaskState) {
 
 val Task.isMonitored: Boolean
 	get() = this in configuration.monitorTasks
-
-fun monitor(project: Project) {
-	project.gradle.taskGraph.addTaskExecutionListener(TaskExecutionListener)
-}

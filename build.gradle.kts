@@ -1,17 +1,17 @@
 import org.gradle.api.tasks.wrapper.Wrapper
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
+plugins {
+	`kotlin-dsl`
+	kotlin("jvm")
+	`java-gradle-plugin`
+}
 
 group = "io.czar"
 version = "0.0.1"
 
-plugins {
-	`kotlin-dsl`
-	kotlin("jvm")
-}
-
 task<Wrapper>("wrapper") {
-	gradleVersion = "4.4.1"
+	gradleVersion = "4.5.1"
 	distributionType = Wrapper.DistributionType.ALL
 }
 
